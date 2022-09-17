@@ -1,0 +1,88 @@
+/* ===== Scrollbar ===== */
+  *::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+  
+  *::-webkit-scrollbar
+  {
+    width: 7px;
+    height: 4px;
+    background-color: #F5F5F5;
+  }
+  
+  *::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #51aac5;
+  }
+
+/* ===== Imagem / Icone ===== */
+.cate-image{
+  width: 100px;
+  height: 80px;
+}
+
+/* ===== Botão ===== */
+.btn.btn-primary:hover {
+  color: #fff;
+  background-color: #2196f3;
+  border-color: #197ac9;
+}
+  
+.btn.btn-primary:focus,
+.btn.btn-primary.focus,
+.btn.btn-primary:hover {
+  color: #fff;
+  background-color: #2196f3;
+  border-color: #197ac9;
+}
+
+/* ===== Sei lá ===== */
+i .box-plus{
+  font-size: 24px;
+  float: left;
+  margin-right: 15px;
+  margin-left: 2px;
+  line-height: 30px;
+  width: 24px;
+  text-align: center;
+  color: #a9afbb;
+}
+
+/* ===== Formulario ===== */
+.form-select{
+  display: block;
+  width: 100%;
+  padding: .375rem 2.25rem .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: .25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#edit-img{
+  width: 450px;
+  height: 300px;
+}
+
+#add{
+  background-color: #191919;
+  color: #f4f4f4;
+  text-align: center;
+  border-radius: 5px;
+}
+#add:hover{
+  color: #51aac5;
+  
+}
