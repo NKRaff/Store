@@ -35,6 +35,7 @@
             <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
           @endif
         @else
+        <a class="nav-link" href="{{ url('cart') }}"><i class="bi bi-cart"></i></a>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ Auth::user()->name }}

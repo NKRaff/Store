@@ -12,7 +12,7 @@
     </div>
 -->
     <div class="container mt-3">
-        <div class="card shadow">
+        <div class="card shadow product_data">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 border-right">
@@ -44,21 +44,26 @@
                         @if($products->qty > 0)
                             <label class="badge bg-success">Em estoque</label>
                         @else
-                            <label class="badge bd-danger">Fora de Estoque</label>
+                            <label class="badge bg-danger">Fora de Estoque</label>
                         @endif
 
                         <div class="row mt-2">
                             <div class="col-md-2">
+                                <input type="hidden" value="{{ $products->id }}" class="prod_id">
                                 <label for="Quantity">Quantidade</label>
                                 <div class="input-group mb-3">
                                     <button class="input-group-text decrement-btn">-</button>
-                                    <input type="text" name="quantity" value="1" class="form-control qty-input text-center">
+                                    <input type="text" name="product_qty" id="product_qty" value="1" class="form-control qty-input text-center">
                                     <button class="input-group-text increment-btn">+</button>
                                 </div>
                             </div>
+
                             <div class="col-md-10">
                                 <br/>
-                                <button type="button" class="btn btn-success me-3 float-start">Adicionar ao Carrinho <i class="fa fa-shopping-cart"></i></button>
+                                @if($products->qty > 0)
+                                    <button class="btn btn-success me-3 float-start addToCartBtn">Adicionar ao Carrinho <i class="fa fa-shopping-cart"></i></button>
+                                @endif
+                                <!--<button href="{{ url('add-cart/') }}" type="button" class="btn btn-success me-3 float-start">Adicionar ao Carrinho <i class="fa fa-shopping-cart"></i></button>-->
                                 <!-- <button type="button" class="btn btn-primary me-3 float-end">Adicionar a lista de desejos</button> -->
                             </div>
                         </div>
@@ -77,34 +82,4 @@
 
 @endsection
 
-@section('scripts')
-    <script>
-        $(document).ready(function (){
-            $('.increment-btn').click(function (e){
-                e.preventDefault();
 
-                var inc_value = $('.qty-input').val();
-                var value = parseInt(inc_value, 10);
-                value = isNaN(value) ? 0 : value;
-                if(value < 10)
-                {
-                    value++;
-                    $('.qty-input').val(value);
-                }
-            });
-
-            $('.decrement-btn').click(function (e){
-                e.preventDefault();
-
-                var dec_value = $('.qty-input').val();
-                var value = parseInt(dec_value, 10);
-                value = isNaN(value) ? 0 : value;
-                if(value > 1)
-                {
-                    value--;
-                    $('.qty-input').val(value);
-                }
-            });
-        });
-    </script>
-@endsection

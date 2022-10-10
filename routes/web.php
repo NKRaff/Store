@@ -7,7 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CupomController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Frontend\CarrinhoController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 
 /*
@@ -27,20 +28,27 @@ use App\Http\Controllers\Frontend\FrontendController;
 //});
 
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('profile', [FrontendController::class, 'profile']);
-Route::get('edit-profile', [FrontendController::class, 'editprofile']);
-Route::put('update-profile', [FrontendController::class, 'updateprofile']);
-Route::get('category', [FrontendController::class, 'category']);
-Route::get('view-category/{slug}', [FrontendController::class, 'viewcategory']);
-Route::get('category/{cate_slug}/{prod_slug}', [FrontendController::class, 'productview']);
-
-Route::middleware(['auth'])->group(function (){
-    Route::get('cart', [CarrinhoController::class, 'index']);
-});
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('profile', [FrontendController::class, 'profile']);
+Route::get('edit-profile', [FrontendController::class, 'editprofile']);
+Route::put('update-profile', [FrontendController::class, 'updateprofile']);
+
+Route::get('category', [FrontendController::class, 'category']);
+Route::get('view-category/{slug}', [FrontendController::class, 'viewcategory']);
+Route::get('category/{cate_slug}/{prod_id}', [FrontendController::class, 'productview']);
+Route::get('product', [FrontendController::class, 'product']);
+
+Route::post('add-to-cart', [CartController::class, 'addProduct']);
+Route::post('update-cart', [CartController::class, 'updateCart']);
+Route::post('delete-cart-item', [CartController::class, 'deleteProduct']);
+
+Route::middleware(['auth'])->group(function (){
+    Route::get('cart', [CartController::class, 'viewCart']);
+    Route::get('checkout', [CheckoutController::class, 'index']);
+    Route::post('place-order', [CheckoutController::class, 'placeorder']);
+});
 
 Route::middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/dashboard', [App\Http\Controllers\Admin\FrontendController::class, 'index']);

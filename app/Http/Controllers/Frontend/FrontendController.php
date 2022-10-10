@@ -82,4 +82,10 @@ class FrontendController extends Controller
         }
 
     }
+
+    public function product()
+    {
+        $product = Product::where('status', 'Y')->get();
+        return view('frontend.product', compact('product'));
+    }
 }

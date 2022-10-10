@@ -1,65 +1,56 @@
 @extends('layouts.front')
 
 @section('title')
-    Carrinho
+    Store - Carrinho
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <div class="">
-                <h4>Produtos</h4>
+    <div class="container my-5">
+        <div class="card shadow product_data">
+            <div class="card-body">
+                @php
+                    $total = 0;
+                @endphp
+                @foreach($cartItens as $item)
+                
+                    <div class="row product_data">
+                        <div class="col-md-2">
+                            <img src="{{ asset('assets/uploads/products/'.$item->products->image) }}" alt="Imagem" width="100px">
+                        </div>
+                        <div class="col-md-3">
+                            <h6>{{ $item->products->name }}</h6>
+                        </div>
+                        <div class="col-md-2">
+                            <h6>R$ {{ $item->products->price }}</h6>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="hidden" class="prod_id" value="{{ $item->prod_id }}">
+                            @if($item->products->qty > $item->prod_qty)
+                                <label for="Quantity">Quantity</label>
+                                <div class="input-group text-center mb-3" style="width: 130px;">
+                                    <button class="input-group-text changeQuantity decrement-btn">-</button>
+                                    <input type="text" name="quantity" class="form-control qty-input text-center" value="{{$item->prod_qty}}">
+                                    <button class="input-group-text changeQuantity increment-btn">+</button>
+                                </div>
+                                @php
+                                    $total += $item->products->price * $item->prod_qty;
+                                @endphp
+                            @else
+                                <h6>Fora de Estoque</h6>
+                            @endif
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-danger delete-cart-item"><i class="fa-solid fa-trash-can"></i> Remover</button>
+                        </div>
+                    </div>
+                    
+                @endforeach
+            </div>
+            <div class="card-footer">
+                <h6>Total: R$ {{ $total }}
+                    <a href="{{ url('checkout') }}" class="btn btn-outline-success float-end">Continuar com a Compra</a>
+                </h6>
             </div>
         </div>
-
-        @forelse ($pedidos as $pedido)
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Qtd</th>
-                            <th scope="col">Produto</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Desconto</th>
-                            <th scope="col">Total</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $total_pedido = 0;
-                        @endphp
-                        @foreach ($pedido->pedido_produtos as $pedido_produto)
-                            <tr >
-                                <td>
-                                    <img src="{{ asset('assets/uploads/products/'.$pedido_produto->produto->image) }}" alt="Image" class="cate-image" width="150px" height="100px">
-                                </td>
-                                <td>
-                                    <a href=""><i class="bi bi-dash"></i></a>
-                                    <span>{{ $pedido_produto->qtd }}</span>
-                                    <a href=""><i class="bi bi-plus"></i></a>
-                                </td>
-                                <td>{{ $pedido_produto->produto->name }}</td>
-                                <td>R$ {{ number_format($pedido_produto->produto->price, 2, ',', '.' )}}</td>
-                                <td>R$ {{ number_format($pedido_produto->desconto, 2, ',', '.' )}}</td>
-                                @php
-                                    $total_produto = $pedido_produto->valores - $pedido_produto->descontos;
-                                    $total_pedido += $total_produto;
-                                @endphp
-                                <td>R$ {{ number_format($total_produto, 2, ',', '.' )}}</td>
-                                <td>
-                                    <a href="#" class="btn btn-danger md"><i class="fa-solid fa-trash-can"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <strong>Total do pedido: </strong>
-                <span>R$ {{number_format($total_pedido, 2, ',', '.')}}</span>
-            </div>
-        @empty
-            <h5>Não há nenhum produto no carrinho</h5>
-        @endforelse
     </div>
 @endsection

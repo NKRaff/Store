@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pedidos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned(); // unsigned: somente inteiros positivos
-            $table->enum('status', ['RE', 'PA', 'CA']); // Reservado, Pago, Cancelado
+        Schema::create('order_itens', function (Blueprint $table) {
+            $table->id();
+            $table->string('order_id');
+            $table->string('prod_id');
+            $table->string('qty');
+            $table->string('price');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedido');
+        Schema::dropIfExists('order_itens');
     }
 };
