@@ -33,6 +33,7 @@ class CheckoutController extends Controller
     public function placeorder(Request $request)
     {
         $order = new Order();
+        $order->user_id = Auth::id();
         $order->fname = $request->input('fname');
         $order->lname = $request->input('lname');
         $order->email = $request->input('email');
@@ -41,7 +42,16 @@ class CheckoutController extends Controller
         $order->city = $request->input('city');
         $order->state = $request->input('state');
         $order->cep = $request->input('cep');
-        $order->tracking = 'store'.rand(1111,9999);
+
+        $total = 0;
+        $cartItems_Total = Cart::where('user_id', Auth::id())->get();
+        foreach($cartItems_Total as $prod)
+        {
+            $total += $prod->products->price;
+        }
+        $order->total_price = $total;
+        
+        $order->tracking_no = 'store'.rand(1111,9999);
         $order->save();
         
         $cartItems = Cart::where('user_id', Auth::id())->get();
@@ -53,11 +63,14 @@ class CheckoutController extends Controller
                 'qty' => $item->prod_qty,
                 'price' => $item->products->price,
             ]);
+            $prod = Product::where('id', $item->prod_id)->first();
+            $prod->qty = $prod->qty - $item->prod_qty;
+            $prod->update();    
         }
 
         if(Auth::user()->address == NULL)
         {
-            $user = User::where('id', Auth::id()->first());
+            $user = User::where('id', Auth::id())->first();
             $user->lname = $request->input('fname');
             $user->lname = $request->input('lname');
             $user->email = $request->input('email');
@@ -68,6 +81,11 @@ class CheckoutController extends Controller
             $user->cep = $request->input('cep');
             $user->update();
         }
+
+        $cartItems = Cart::where('user_id', Auth::id())->get();
+        Cart::destroy($cartItems);
+
+        return redirect('/')->with('status', "Pedido Realizado com Sucesso");
     }
 
 }

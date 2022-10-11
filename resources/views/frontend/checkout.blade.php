@@ -17,35 +17,35 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="">Nome</label>
-                                    <input type="text" class="form-control" name="fname" placeholder="Digite seu Nome">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" name="fname" placeholder="Digite seu Nome">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="">Sobrenome</label>
-                                    <input type="text" class="form-control" name="lname" placeholder="Digite seu Sobrenome">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->lname }}" name="lname" placeholder="Digite seu Sobrenome">
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">Email</label>
-                                    <input type="text" class="form-control" name="email" placeholder="Digite seu Email">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->email }}" name="email" placeholder="Digite seu Email">
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">Telefone</label>
-                                    <input type="text" class="form-control" name="phone" placeholder="Digite seu Numero de Telefone">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->phone }}" name="phone" placeholder="Digite seu Numero de Telefone">
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">Endereço</label>
-                                    <input type="text" class="form-control" name="address" placeholder="Digite seu endereço">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->address }}" name="address" placeholder="Digite seu endereço">
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">Cidade</label>
-                                    <input type="text" class="form-control" name="city" placeholder="Digite sua Cidade">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->city }}" name="city" placeholder="Digite sua Cidade">
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">Estado</label>
-                                    <input type="text" class="form-control" name="state" placeholder="Digite seu Estado">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->state }}" name="state" placeholder="Digite seu Estado">
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">Cep</label>
-                                    <input type="text" class="form-control" name="cep" placeholder="Digite seu Cep">
+                                    <input type="text" class="form-control" value="{{ Auth::user()->cep }}" name="cep" placeholder="Digite seu Cep">
                                 </div>
                             </div>
                         </div>
@@ -63,16 +63,23 @@
                                     <th class="col-md-3">Preço</th>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $total = 0;
+                                    @endphp
                                     @foreach($cartItems as $item)
                                         <tr>
                                             <td>{{ $item->products->name }}</td>
                                             <td>{{ $item->prod_qty }}</td>
-                                            <td>R$ {{ $item->products->price }}</td>
+                                            <td>R$ {{ $item->products->price * $item->prod_qty }}</td>
                                         </tr>
+                                        @php
+                                            $total += $item->products->price * $item->prod_qty;
+                                        @endphp
                                     @endforeach
                                 </tbody>
                             </table>
                             <hr>
+                            <h6 class="float-end">Total: R${{ $total }}</h6>
                             <button type="submit" class="btn btn-primary w-100">Finalizar Pedido</button>
                         </div>
                     </div>
