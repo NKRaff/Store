@@ -2,17 +2,15 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <div class="">
-                <h4>Produtos</h4>
+        <div class="card-header">
+                <h4>
+                    Produtos
+                    <a href="{{ url('add-products') }}" class="btn btn-primary float-right">
+                        <i class="bi bi-folder-plus"></i>
+                        Adicionar Produto
+                    </a>
+                </h4>
             </div>
-            <div class="">
-                <a class="nav-link" id="add" href="{{ url('add-products') }}">
-                    <i class="bi bi-folder-plus"></i>
-                    Adicionar Produto
-                </a>
-            </div>
-        </div>
 
         <div class="card-body">
             <table class="table table-striped">

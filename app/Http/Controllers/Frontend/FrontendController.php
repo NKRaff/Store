@@ -18,29 +18,6 @@ class FrontendController extends Controller
         return view('frontend.index', compact('featured_products', 'category'));
     }
 
-    public function profile()
-    {
-        return view('frontend.profile.index');
-    }
-
-    public function editprofile()
-    {
-        return view('frontend.profile.edit')->with('user', auth()->user());
-    }
-
-    public function updateprofile(Request $request)
-    {
-        $user = auth()->user();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->save();
-        /*$user->update([
-            'name' -> $request->name,
-            'email' -> $request->email
-        ]);*/
-        return redirect('/')->with('status', "Atualizado com Sucesso"); 
-    }
-
     public function category()
     {
         $category = Category::where('status', 'Y')->get();

@@ -5,4 +5,13 @@ a{
   text-decoration: none !important;
   color: #000;
 }
+
+.order-details label{
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.order-details div{
+  font-size: 14px;
+}
  

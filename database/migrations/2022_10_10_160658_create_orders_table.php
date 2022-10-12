@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('cep');
-            $table->enum('status', ['Y', 'N'])->default('N');
+            $table->enum('status', ['Pendente', 'Completo'])->default('Pendente');
             $table->string('total_price');
             $table->string('massage')->nullable();
             $table->string('tracking_no')->nullable();

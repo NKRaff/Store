@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CupomController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +33,6 @@ Route::get('/', [FrontendController::class, 'index']);
 
 Auth::routes();
 
-Route::get('profile', [FrontendController::class, 'profile']);
-Route::get('edit-profile', [FrontendController::class, 'editprofile']);
-Route::put('update-profile', [FrontendController::class, 'updateprofile']);
-
 Route::get('category', [FrontendController::class, 'category']);
 Route::get('view-category/{slug}', [FrontendController::class, 'viewcategory']);
 Route::get('category/{cate_slug}/{prod_id}', [FrontendController::class, 'productview']);
@@ -48,6 +46,9 @@ Route::middleware(['auth'])->group(function (){
     Route::get('cart', [CartController::class, 'viewCart']);
     Route::get('checkout', [CheckoutController::class, 'index']);
     Route::post('place-order', [CheckoutController::class, 'placeorder']);
+
+    Route::get('my-orders', [UserController::class, 'index']);
+    Route::get('view-order/{id}', [UserController::class, 'view']);
 });
 
 Route::middleware(['auth', 'isAdmin'])->group(function (){
@@ -73,5 +74,12 @@ Route::middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('edit-cupons/{id}', [CupomController::class, 'edit']);
     Route::put('updade-cupons/{id}', [CupomController::class, 'update']);
     Route::get('delete-cupons/{id}', [CupomController::class, 'destroy']);
+
+    Route::get('users', [FrontendController::class, 'users']);
+
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::get('admin/view-order/{id}', [OrderController::class, 'view']);
+    Route::put('updade-order/{id}', [OrderController::class, 'updadeOrder']);
+    Route::get('order-history', [OrderController::class, 'orderHistory']);
     
 });
