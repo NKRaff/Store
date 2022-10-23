@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CupomController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
@@ -37,6 +38,9 @@ Route::get('category', [FrontendController::class, 'category']);
 Route::get('view-category/{slug}', [FrontendController::class, 'viewcategory']);
 Route::get('category/{cate_slug}/{prod_id}', [FrontendController::class, 'productview']);
 Route::get('product', [FrontendController::class, 'product']);
+
+Route::get('product-list', [FrontendController::class, 'productListAjax']);
+Route::post('searchProduct', [FrontendController::class, 'searchProduct']);
 
 Route::post('add-to-cart', [CartController::class, 'addProduct']);
 Route::post('update-cart', [CartController::class, 'updateCart']);
@@ -75,11 +79,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function (){
     Route::put('updade-cupons/{id}', [CupomController::class, 'update']);
     Route::get('delete-cupons/{id}', [CupomController::class, 'destroy']);
 
-    Route::get('users', [FrontendController::class, 'users']);
-
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('admin/view-order/{id}', [OrderController::class, 'view']);
     Route::put('updade-order/{id}', [OrderController::class, 'updadeOrder']);
     Route::get('order-history', [OrderController::class, 'orderHistory']);
     
+    Route::get('users', [DashboardController::class, 'users']);
+    Route::get('view-user/{id}', [DashboardController::class, 'viewUser']);
+    
+
 });

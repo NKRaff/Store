@@ -20,6 +20,9 @@
     <link href="{{ asset('frontend/css/bootstrap5.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
 
+    <!-- JQuery UI -->
+    <link href="{{ asset('frontend/css/jquery-ui.css') }}" rel="stylesheet">
+
     <!-- Owl Carousel -->
     <link href="{{ asset('frontend/css/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/owl.theme.default.min.css') }}" rel="stylesheet">
@@ -42,9 +45,32 @@
     <!-- Scripts -->
     <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-3.6.0.min.js') }}"></script>
+    <!--<script src="{{ asset('frontend/js/jquery-ui.js') }}"></script>-->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/script.js') }}"></script>
     <script src="https://kit.fontawesome.com/20102b8b28.js" crossorigin="anonymous"></script>
+
+    <script>
+
+        var availableTags = [];
+        $.ajax({
+            method: "GET",
+            url: "/product-list",
+            success: function (response){
+                //console.log(response);
+                startAutoComplete(response);
+            }
+        });
+
+        function startAutoComplete(availableTags)
+        {
+            $( "#search_product" ).autocomplete({
+                source: availableTags
+            });
+        }
+
+  </script>
     
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @if(session('status'))

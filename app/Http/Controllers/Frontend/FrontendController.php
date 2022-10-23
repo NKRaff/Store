@@ -65,4 +65,33 @@ class FrontendController extends Controller
         $product = Product::where('status', 'Y')->get();
         return view('frontend.product', compact('product'));
     }
+
+    public function productListAjax()
+    {
+        $products = Product::select('name')->where('status', 'Y')->get();
+        $data = [];
+
+        foreach($products as $item){
+            $data[] = $item['name'];
+        }
+
+        return $data;
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $searched_product = $request->product_name;
+        if($searched_product != "")
+        {
+            $product = Product::where("name","LIKE","%$searched_product%")->first();
+            if($product)
+            {
+                return redirect('category/'.$product->category->name."/".$product->name);
+            }else {
+                return redirect()->back()->with("status", "Nenhum Produto Encontrado!");
+            }
+        }else {
+            return redirect()->back();
+        }
+    }
 }

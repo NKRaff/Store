@@ -1,31 +1,26 @@
-<!--<div class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ms-auto">
-
-      @if (Route::has('login'))        
-        @auth                  
-        @else
-          <a href="{{ route('login') }}" class="nav-link">Log in</a>
-
-          @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="nav-link">Registrar</a>
-          @endif
-        @endauth                     
-      @endif
-
-    </div>
-  </div>
-</div>-->   
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="{{ url('/') }}">Store</a>
+    
+    <div class="search-bar">
+      <form action="{{ url('searchProduct') }}" method="POST">
+        @csrf
+        <div class="input-group">
+          <input type="search" class="form-control" id="search_product" name="product_name" required placeholder="Pesquisar" aria-describedby="basic-addon1">
+          <button type="submit" class="input-group-text"><i class="bi bi-search"></i></button>
+        </div>
+      </form>
+    </div>
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ms-auto">
         <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
+        <a class="nav-link" href="{{ url('#') }}">Produtos</a>
         <a class="nav-link" href="{{ url('category') }}">Categorias</a>
         @guest
           @if (Route::has('login'))
