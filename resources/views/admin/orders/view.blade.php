@@ -72,8 +72,8 @@
                                         @csrf
                                         @method('PUT')
                                         <select class="form-select" name="order_status">
-                                            <option value="N" {{ $orders->status == 'N' ? 'selected' : '' }}>Pendente</option>
-                                            <option value="Y" {{ $orders->status == 'Y' ? 'selected' : '' }}>Completo</option>
+                                            <option value="Pendente" {{ $orders->status == 'Pendente' ? 'selected' : '' }}>Pendente</option>
+                                            <option value="Completo" {{ $orders->status == 'Completo' ? 'selected' : '' }}>Completo</option>
                                         </select>
                                         <button type="submit" class="btn btn-primary mt-3 float-end">Atualizar Status</button>
                                     </form>

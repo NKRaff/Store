@@ -24,6 +24,10 @@
                                     <input type="text" class="form-control" value="{{ Auth::user()->lname }}" name="lname" placeholder="Digite seu Sobrenome">
                                 </div>
                                 <div class="col-md-6 mt-3">
+                                    <label for="">CPF</label>
+                                    <input type="text" class="form-control" value="{{ Auth::user()->cpf }}" name="cpf" placeholder="Digite seu CPF">
+                                </div>
+                                <div class="col-md-6 mt-3">
                                     <label for="">Email</label>
                                     <input type="text" class="form-control" value="{{ Auth::user()->email }}" name="email" placeholder="Digite seu Email">
                                 </div>

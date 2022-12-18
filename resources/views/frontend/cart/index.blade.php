@@ -14,9 +14,9 @@
                     @endphp
                     @foreach($cartItens as $item)
                     
-                        <div class="row product_data">
+                        <div class="row product_data mb-3">
                             <div class="col-md-2">
-                                <img src="{{ asset('assets/uploads/products/'.$item->products->image) }}" alt="Imagem" width="100px">
+                                <img src="{{ asset('assets/uploads/products/'.$item->products->image) }}" alt="Imagem" width="100px" height="75px">
                             </div>
                             <div class="col-md-3">
                                 <h6>{{ $item->products->name }}</h6>

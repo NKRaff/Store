@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-    @include('layouts.inc.slider')
     
     <div class="py-5">
         <div class="container">
@@ -14,12 +13,14 @@
                 <div class="owl-carousel featured-carousel owl-theme">
                     @foreach($featured_products as $prod)
                         <div class="item">
-                            <div class="card">
-                                <img src="{{ asset('assets/uploads/products/'.$prod->image); }}" alt="Imagem do produto">
-                                <div class="card-body">
-                                    <h5>{{ $prod->name }}</h5>
-                                    <span class="float-start">R${{ $prod->price }}</span>
-                                </div>
+                            <div class="card pb-3">
+                                <a href="{{ url('category/'.$prod->category->name.'/'.$prod->name) }}">
+                                    <img src="{{ asset('assets/uploads/products/'.$prod->image); }}" alt="Imagem do produto" style="width: 300px; height: 200px; margin: auto;">
+                                    <div class="card-body">
+                                        <h5>{{ $prod->name }}</h5>
+                                        <span class="float-start">R$ {{ $prod->price }}</span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     @endforeach
@@ -37,7 +38,7 @@
                         <div class="item">
                             <a href="{{ url('view-category/'.$scategory->name) }}">
                                 <div class="card">
-                                    <img src="{{ asset('assets/uploads/category/'.$scategory->image); }}" alt="Imagem do produto">
+                                    <img src="{{ asset('assets/uploads/category/'.$scategory->image); }}" alt="Imagem do produto" style="max-width: 100px; max-height: 100px; margin: auto;">
                                     <div class="card-body">
                                         <h5>{{ $scategory->name }}</h5>
                                         <p>
@@ -74,7 +75,7 @@
         }
     })
     $('.category-carousel').owlCarousel({
-        loop:true,
+        loop:false,
         margin:10,
         nav:true,
         dots:false,

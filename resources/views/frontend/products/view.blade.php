@@ -4,19 +4,23 @@
     
 
 @section('content')
-<!--
-    <div class="py-3 mb-4 shadow-sm bg-primary text-white">
+
+    <div class="py-3 mb-4 shadow-sm bg-primary text-white" style="background-color: #00bcd4 !important;">
         <div class="container">
-            <h6 class="mb-0">Categoria / {{ $products->category->name }} / {{ $products->name }}</h6>
+            <h6 class="mb-0">
+                <a href="{{ url('category') }}" class="text-white">Categoria /</a>
+                <a href="{{ url('view-category/'.$products->category->name) }}" class="text-white">{{ $products->category->name }} /</a>
+                <a class="text-white">{{ $products->name }}</a>
+            </h6>
         </div>
     </div>
--->
+
     <div class="container mt-3">
         <div class="card shadow product_data">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 border-right">
-                        <img src="{{ asset('assets/uploads/products/'.$products->image) }}" class="w-100" alt="Imagem do produto">
+                        <img src="{{ asset('assets/uploads/products/'.$products->image) }}" class="w-100" alt="Imagem do produto" style="width: 300px; height: 200px; margin: auto;">
                     </div>
                     <div class="col-md-8">
                         <h2 class="row mb-0">

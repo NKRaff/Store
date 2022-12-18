@@ -17,9 +17,31 @@ a{
 
 .search-bar{
   width: 40%;
-  margin-left: 15%;
+  margin-left: 5%;
 }
 
 .ui-menu{
   z-index: 3500 !important;
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #0a6ebd #444444;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #444444;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #0a6ebd;
+    border-radius: 10px;
+    border: 0px solid #ffffff;
+  }

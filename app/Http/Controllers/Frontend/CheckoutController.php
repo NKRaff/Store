@@ -29,11 +29,12 @@ class CheckoutController extends Controller
 
         return view('frontend.checkout', compact('cartItems'));
     }
-
+   
     public function placeorder(Request $request)
     {
         $order = new Order();
         $order->user_id = Auth::id();
+        $order->cpf = $request->input('cpf');
         $order->fname = $request->input('fname');
         $order->lname = $request->input('lname');
         $order->email = $request->input('email');
@@ -72,6 +73,7 @@ class CheckoutController extends Controller
         if(Auth::user()->address == NULL)
         {
             $user = User::where('id', Auth::id())->first();
+            $order->cpf = $request->input('cpf');
             $user->lname = $request->input('fname');
             $user->lname = $request->input('lname');
             $user->email = $request->input('email');
