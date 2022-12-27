@@ -34,11 +34,49 @@ class CheckoutController extends Controller
     {
         $order = new Order();
         $order->user_id = Auth::id();
-        $order->cpf = $request->input('cpf');
+        
+        $cpfValidador = self::verificarCPF($request->input('cpf'));
+        if($cpfValidador == true){
+            $order->cpf = $request->input('cpf');
+        }
+        else {
+            return redirect('checkout')->with('status', "CPF Invalido");
+        }
+
         $order->fname = $request->input('fname');
         $order->lname = $request->input('lname');
         $order->email = $request->input('email');
-        $order->phone = $request->input('phone');
+
+        //processa a string mantendo apenas números no valor de entrada.
+        $tel = $request->input('phone');
+        $tel = preg_replace("/[^0-9]/", "", $tel); 
+            
+        $lenValor = strlen($tel);
+        
+        //validando a quantidade de caracteres de telefone fixo ou celular.
+        if($lenValor != 10 && $lenValor != 11){
+            return redirect('checkout')->with('status', "Telefone Invalido");
+        }
+        //DD e número de telefone não podem começar com zero.
+        if($tel[0] == "0" || $tel[2] == "0"){
+            return redirect('checkout')->with('status', "Telefone Invalido");
+        }
+        else {
+            $order->phone = $tel;
+        } 
+        
+/*
+        if(preg_match("/\(?\d{2}\)?\s?\d{5}\-?\d{4}/", $request->input('phone'))){
+            $order->phone = $request->input('phone');
+        } 
+        else {
+            return redirect('checkout')->with('status', "Telefone Invalido");
+        }
+*/
+        
+        //$order->phone = $request->input('phone');
+        
+        
         $order->address = $request->input('address');
         $order->city = $request->input('city');
         $order->state = $request->input('state');
@@ -73,7 +111,7 @@ class CheckoutController extends Controller
         if(Auth::user()->address == NULL)
         {
             $user = User::where('id', Auth::id())->first();
-            $order->cpf = $request->input('cpf');
+            $user->cpf = $request->input('cpf');
             $user->lname = $request->input('fname');
             $user->lname = $request->input('lname');
             $user->email = $request->input('email');
@@ -91,4 +129,45 @@ class CheckoutController extends Controller
         return redirect('/')->with('status', "Pedido Realizado com Sucesso");
     }
 
+    public static function verificarCPF($cpf)
+    {
+        $cpf = preg_replace('/\D/', '', $cpf);
+        if(strlen($cpf) == 11){
+            $cpfValidacao = substr($cpf,0,9);
+            $cpfValidacao .= self::calcularDigitoVerificador($cpfValidacao);
+            $cpfValidacao .= self::calcularDigitoVerificador($cpfValidacao);
+
+            if($cpfValidacao == $cpf){
+                return $cpfValidador = true;
+            } 
+            else{
+                return $cpfValidador = false;
+            }
+        }
+        else{
+            return $cpfValidador = false;
+        } 
+    }
+
+    public static function calcularDigitoVerificador($base)
+    {
+        $tamanho = strlen($base);
+        $multiplicador = $tamanho + 1;
+
+        $soma = 0;
+        for($i = 0; $i < $tamanho; $i++){
+            $soma += $base[$i] * $multiplicador;
+            $multiplicador--;
+        }
+
+        $resto = $soma % 11;
+
+        return $resto > 1 ? 11 - $resto : 0;
+    }
+
+    public static function verificarPhone($phone)
+    {
+        $phone = preg_replace('/[()]-+/', '', $phone);
+        echo($phone);
+    }
 }

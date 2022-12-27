@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -56,6 +58,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $products = Product::find($id);
+
         if($request->hasFile('image'))
         {
             $path = 'assets/uploads/products/'.$products->image;
@@ -83,13 +86,21 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $products = Product::find($id);
-        $path = 'assets/uploads/products/'.$products->image;
-        if(File::exists($path))
-        {
-            File::delete($path);
+        //$order = OrderItem::all('prod_id');
+        //$pedido = OrderItem::find('prod_id');
+        
+        if(OrderItem::where('prod_id', $id)->first() && Order::where('status', "Completo")->first()){
+            return redirect('products')->with('status', "Erro ao Deletar! Produto adicionado em algum carrinho");
         }
-        $products->delete();
-        return redirect('products')->with('status', "Produto Deletado com Sucesso");
+        else{
+            $path = 'assets/uploads/products/'.$products->image;
+            if(File::exists($path))
+            {
+                File::delete($path);
+            }
+            $products->delete();
+            return redirect('products')->with('status', "Produto Deletado com Sucesso");
+        }
+        
     }
-
 }

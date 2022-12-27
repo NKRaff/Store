@@ -58,15 +58,17 @@
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Logar') }}
+                                    {{ __('Logar') }} 
                                 </button>
 
+                                <!--
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Esqueceu sua Senha?') }}
                                     </a>
                                 @endif
-                            </div>
+                                -->
+                            </div> 
                         </div>
                     </form>
                 </div>
