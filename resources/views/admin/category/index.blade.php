@@ -16,22 +16,22 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Descrição</th>
-                                <th scope="col">Imagem</th>
-                                <th scope="col">Opções</th>
+                                <th scope="col" class="col-sm-1">Id</th>
+                                <th scope="col" class="col-sm-3">Nome</th>
+                                <th scope="col" class="col-sm-3">Descrição</th>
+                                <th scope="col" class="col-sm-3">Imagem</th>
+                                <th scope="col" class="col-sm-2">Opções</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($category as $item)
                                 <tr>
                                     <td scope="row">{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td class="overflow-hidden text-truncate text-nowrap">{{ $item->description }}</td>
+                                    <td class="text-overview">{{ $item->name }}</td>
+                                    <td class="overflow-hidden text-truncate text-nowrap" style="width: 40px;"><p class="text-overview">{{ $item->description }}</p></td>
                                     <td>
                                         <img src="{{ asset('assets/uploads/category/'.$item->image) }}" alt="Image" class="cate-image">
                                     </td>

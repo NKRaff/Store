@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
@@ -16,8 +17,9 @@ class OrderController extends Controller
 
     public function view($id)
     {
+        $category = Category::where('status', 'Y')->get();
         $orders = Order::where('id', $id)->first();
-        return view('admin.orders.view', compact('orders'));
+        return view('admin.orders.view', compact('orders', 'category'));
     }
 
     public function updadeOrder(Request $request, $id)
@@ -31,6 +33,7 @@ class OrderController extends Controller
     public function orderHistory()
     {
         $orders = Order::where('status', 'Completo')->get();
-        return view('admin.orders.history', compact('orders'));
+        $category = Category::where('status', 'Y')->get();
+        return view('admin.orders.history', compact('orders', 'category'));
     }
 }

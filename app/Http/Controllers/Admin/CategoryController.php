@@ -33,8 +33,11 @@ class CategoryController extends Controller
             $filename = time().'.'.$ext;
             $file->move('assets/uploads/category/', $filename);
             $category->image = $filename;
+            
+            $name = $_FILES["image"]["name"];
+            $namefile = basename($name, '.svg');
+            $category->namefile = $namefile;
         }
-
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->status = $request->input('status') == TRUE ? 'Y':'N';
@@ -65,6 +68,10 @@ class CategoryController extends Controller
             $filename = time().'.'.$ext;
             $file->move('assets/uploads/category/', $filename);
             $category->image = $filename;
+
+            $name = $_FILES["image"]["name"];
+            $namefile = basename($name, '.svg');
+            $category->namefile = $namefile;
         }
         $category->name = $request->input('name');
         $category->description = $request->input('description');

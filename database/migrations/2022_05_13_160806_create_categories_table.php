@@ -19,8 +19,10 @@ return new class extends Migration
             $table->longText('description');
             $table->enum('status', ['Y', 'N'])->default('N');
             $table->string('image')->nullable();
+            $table->string('namefile');
             $table->timestamps();
         });
+
     }
 
     /**

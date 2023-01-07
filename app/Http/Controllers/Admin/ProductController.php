@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\File;
@@ -90,6 +91,10 @@ class ProductController extends Controller
         //$pedido = OrderItem::find('prod_id');
         
         if(OrderItem::where('prod_id', $id)->first() && Order::where('status', "Completo")->first()){
+            return redirect('products')->with('status', "Erro ao Deletar! ");
+        }
+
+        if(Cart::where('prod_id', $id)->first()){
             return redirect('products')->with('status', "Erro ao Deletar! Produto adicionado em algum carrinho");
         }
         else{

@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,7 +28,8 @@ class CheckoutController extends Controller
 
         $cartItems = Cart::where('user_id', Auth::id())->get();
 
-        return view('frontend.checkout', compact('cartItems'));
+        $category = Category::where('status', 'Y')->get();
+        return view('frontend.checkout', compact('cartItems', 'category'));
     }
    
     public function placeorder(Request $request)

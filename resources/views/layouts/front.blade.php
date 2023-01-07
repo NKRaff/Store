@@ -37,10 +37,13 @@
 
 </head>
 <body>
-    @include('layouts.inc.frontnavbar')
-    <div class="content">
-        @yield('content')
-    </div>
+    @include('layouts.template.frontendsidebar')
+    <section class="home">
+        @include('layouts.template.frontendnavbar')
+        <div class="content">
+            @yield('content')
+        </div>
+    </section>
 
     <!-- Scripts -->
     <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>

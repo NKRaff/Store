@@ -31,8 +31,13 @@ use App\Http\Controllers\Frontend\UserController;
 //});
 
 Route::get('/', [FrontendController::class, 'index']);
+Route::get('/a', [FrontendController::class, 'home']);
 
-Auth::routes();
+Auth::routes([
+    'verify' => true
+]);
+
+Route::get('verificar', [FrontendController::class, 'verify']);
 
 Route::get('category', [FrontendController::class, 'category']);
 Route::get('view-category/{slug}', [FrontendController::class, 'viewcategory']);
@@ -87,5 +92,4 @@ Route::middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('users', [DashboardController::class, 'users']);
     Route::get('view-user/{id}', [DashboardController::class, 'viewUser']);
     
-
 });

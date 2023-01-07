@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <div class="py-3 mb-4 shadow-sm bg-primary text-white" style="background-color: #00bcd4 !important;">
+    <div class="py-4 mb-4 shadow-sm bg-primary text-white" style="background-color: #00bcd4 !important;">
         <div class="container">
             <h6 class="mb-0">
                 <a href="{{ url('category') }}" class="text-white">Categoria /</a>

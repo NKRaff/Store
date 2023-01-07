@@ -12,10 +12,26 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $featured_products = Product::where('trending', 'Y')->take(15)->get();
+        $featured_products = Product::where('trending', 'Y')->take(8)->get();
+        $newproducts = Product::where('status', 'Y')->take(8)->get();
         //$trending_category = Category::where('popular', '1')->take(8)->get();
         $category = Category::where('status', 'Y')->get();
-        return view('frontend.index', compact('featured_products', 'category'));
+
+        return view('frontend.index', compact('featured_products', 'category', 'newproducts'));
+    }
+
+    public function verify(){
+        $featured_products = Product::where('trending', 'Y')->take(8)->get();
+        $category = Category::where('status', 'Y')->get();
+        return view('auth.verify', compact($category))->with('status', "Confirme seu Email Primeiro");
+    }
+
+    public function home()
+    {
+        $featured_products = Product::where('trending', 'Y')->take(8)->get();
+        $category = Category::where('status', 'Y')->get();
+        
+        return view('frontend.home', compact('featured_products', 'category'));
     }
 
     public function category()
@@ -28,9 +44,10 @@ class FrontendController extends Controller
     {
         if(Category::where('name', $name)->exists())
         {
-            $category = Category::where('name', $name)->first();
-            $products = Product::where('cate_id', $category->id)->where('status', 'Y')->get();
-            return view('frontend.products.index', compact('category', 'products'));
+            $categ = Category::where('name', $name)->first();
+            $products = Product::where('cate_id', $categ->id)->where('status', 'Y')->get();
+            $category = Category::where('status', 'Y')->get();
+            return view('frontend.products.index', compact('categ', 'products', 'category'));
         } 
         else
         {
@@ -45,8 +62,9 @@ class FrontendController extends Controller
         {
             if(Product::where('name', $prod_name)->exists())
             {
+                $category = Category::where('status', 'Y')->get();
                 $products = Product::where('name', $prod_name)->first();
-                return view('frontend.products.view', compact('products'));
+                return view('frontend.products.view', compact('category', 'products'));
             }
             else
             {
@@ -63,7 +81,8 @@ class FrontendController extends Controller
     public function product()
     {
         $product = Product::where('status', 'Y')->get();
-        return view('frontend.product', compact('product'));
+        $category = Category::where('status', 'Y')->get();
+        return view('frontend.product', compact('product', 'category'));
     }
 
     public function productListAjax()

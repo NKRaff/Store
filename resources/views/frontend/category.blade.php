@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <h2>Todas as castegorias</h2>
                     <div class="row">
-                        @foreach($category as $cate)
+                        @foreach($categ as $cate)
                             <div class="col-md-3 mb-3">
                                 <a href="{{ url('view-category/'.$cate->name) }}">
                                     <div class="card">

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -33,11 +35,8 @@ class CartController extends Controller
                     $cartItem->save();
                     return response()->json(['status' => $product_qty."x ".$prod_check->name." Adicionado no Carrinho"]);
                 }
-                
             }
-        } 
-        else
-        {
+        } else {
             return response()->json(['status' => "Faça Login para Continuar"]);
         }
     }
@@ -45,7 +44,8 @@ class CartController extends Controller
     public function viewCart()
     {
         $cartItens = Cart::where('user_id', Auth::id())->get();
-        return view('frontend.cart.index', compact('cartItens'));
+        $category = Category::where('status', 'Y')->get();
+        return view('frontend.cart.index', compact('cartItens', 'category'));
     }
 
     public function updateCart(Request $request)
@@ -60,7 +60,7 @@ class CartController extends Controller
                 $cart = Cart::where('prod_id', $prod_id)->where('user_id', Auth::id())->first();
                 $cart->prod_qty = $product_qty;
                 $cart->update();
-                return response()->json(['status'=>"Quantity updade"]);
+                return response()->json(['status'=>"Quantidade Atualizada"]);
             }
         }
     }

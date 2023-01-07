@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-<div class="container mt-3">
+<div class="container d-flex flex-column justify-content-center" style="height: 100vh;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registrar') }}</div>
+                <div class="card-header" style="background: #1c1c1c; color: #fff;">{{ __('Registrar') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

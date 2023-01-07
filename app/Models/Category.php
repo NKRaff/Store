@@ -15,5 +15,6 @@ class Category extends Model
         'description',
         'status',
         'image',
+        'namefile',
     ];
 }
