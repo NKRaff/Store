@@ -10,4 +10,4 @@ Este é um projeto web desenvolvido na linguagem PHP, utilizando o Laravel como 
     
 O projeto se trata de uma loja virtual, que agrega características predominantes no meio do e-commerce, além de uma interface simples, responsável e intuitiva para auxiliar na usabilidade, sem abrir mão de um design bonito e moderno.
     
-    * Gostaria de adicionar uma API de pagamento, para ser possível realmente realizar transições direto da própria aplicação, mas, pelo projeto ter sido desenvolvido apenas por mim, não houve tempo para sua adição em meio ao período proposto pela banca avaliadora. *
+    Gostaria de adicionar uma API de pagamento, para ser possível realmente realizar transições direto da própria aplicação, mas, pelo projeto ter sido desenvolvido apenas por mim, não houve tempo para sua adição em meio ao período proposto pela banca avaliadora.
